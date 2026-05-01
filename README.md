@@ -5,6 +5,11 @@ This fork packages a dual-Z-probe / multi-Beacon modification set for Klipper.
 See [DUAL_Z_PROBE_CHANGES.md](DUAL_Z_PROBE_CHANGES.md) for the change summary,
 advantages, validation state, and upstream credits.
 
+Risk notice: this is an experimental, non-upstream Klipper modification. Use it
+at your own risk. Anyone installing or running this version accepts full
+responsibility for machine behavior, configuration, testing, hardware damage,
+failed prints, injury, or any other outcome.
+
 Upstream Klipper README
 =======================
 

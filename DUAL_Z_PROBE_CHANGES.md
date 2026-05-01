@@ -9,6 +9,16 @@ The working implementation is currently built around Beacon sensors and keeps
 the patch set concentrated in `klippy/extras/beacon.py` so the fork remains
 easier to rebase against upstream Klipper and Beacon.
 
+## Risk Notice
+
+This is an experimental, non-upstream Klipper modification. Use it at your own
+risk. Anyone installing or running this version accepts full responsibility for
+machine behavior, configuration, testing, hardware damage, failed prints, injury,
+or any other outcome. Do not use it on a live printer until you have reviewed the
+code, understand the configuration, and have validated probe selection, homing,
+bed mesh, leveling, toolchanges, emergency stop behavior, and all relevant safety
+procedures on your own hardware.
+
 ## Upstream Bases
 
 - Klipper upstream base inspected from commit `373f200ca`
