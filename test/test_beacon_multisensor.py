@@ -162,7 +162,8 @@ class FakeMcuProbe:
 class FakeBeacon:
     def __init__(self, tracker, name):
         self.id = beacon.BeaconId(name, tracker)
-        self.probe_wrapper = FakeProbeWrapper("default" if name is None else name)
+        self.probe_wrapper = FakeProbeWrapper(
+            "default" if name is None else name)
         self.mcu_probe = FakeMcuProbe("default" if name is None else name)
 
 
@@ -228,7 +229,8 @@ class BeaconMultiSensorTests(unittest.TestCase):
         self.assertEqual(len(pins.calls), 1)
         self.assertIn("probe", printer.objects)
         self.assertIs(tracker.probe_router, printer.lookup_object("probe"))
-        self.assertEqual(tracker.get_active_sensor_name(require_probe=True), "t0")
+        self.assertEqual(tracker.get_active_sensor_name(
+            require_probe=True), "t0")
 
     def test_probe_router_delegates_to_selected_sensor(self):
         tracker, printer = self.make_tracker()
@@ -243,13 +245,16 @@ class BeaconMultiSensorTests(unittest.TestCase):
         self.assertEqual(router.get_offsets(), (4, 5, 6))
         self.assertEqual(router.get_lift_speed(), 40)
         self.assertEqual(router.run_probe(FakeGcmd()), "t1:run_probe")
-        self.assertEqual(router.start_probe_session(FakeGcmd()), t1.probe_wrapper)
+        self.assertEqual(router.start_probe_session(
+            FakeGcmd()), t1.probe_wrapper)
 
         mcu_probe = router.setup_pin(
-            "endstop", {"pin": "z_virtual_endstop", "invert": False, "pullup": False}
+            "endstop", {"pin": "z_virtual_endstop",
+                "invert": False, "pullup": False}
         )
         self.assertEqual(mcu_probe.get_mcu(), "mcu:t1")
-        self.assertEqual(mcu_probe.get_position_endstop(), "t1:position_endstop")
+        self.assertEqual(mcu_probe.get_position_endstop(),
+                         "t1:position_endstop")
 
     def test_endstop_router_deduplicates_steppers(self):
         tracker, printer = self.make_tracker()
@@ -261,7 +266,8 @@ class BeaconMultiSensorTests(unittest.TestCase):
 
         router = printer.lookup_object("probe")
         endstop = router.setup_pin(
-            "endstop", {"pin": "z_virtual_endstop", "invert": False, "pullup": False}
+            "endstop", {"pin": "z_virtual_endstop",
+                "invert": False, "pullup": False}
         )
         endstop.add_stepper("stepper_z")
         self.assertEqual(t0.mcu_probe.get_steppers(), ["stepper_z"])
@@ -294,8 +300,10 @@ class BeaconMultiSensorTests(unittest.TestCase):
         tracker, _printer = self.make_tracker()
         tracker.sensors = {"t0": object(), "t1": object()}
         tracker.active_sensor = "ghost"
-        with self.assertRaisesRegex(RuntimeError, "BEACON_SELECT SENSOR=<name>"):
-            tracker.dispatch_gcode({"t0": lambda g: None, "t1": lambda g: None}, FakeGcmd())
+        with self.assertRaisesRegex(
+                RuntimeError, "BEACON_SELECT SENSOR=<name>"):
+            tracker.dispatch_gcode(
+                {"t0": lambda g: None, "t1": lambda g: None}, FakeGcmd())
 
 
 if __name__ == "__main__":
