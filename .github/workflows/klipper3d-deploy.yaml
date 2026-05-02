@@ -1,13 +1,18 @@
 name: klipper3d deploy
 on:
+  workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
   push:
     branches:
+      - tinman/dual-z-probe
       - master
     paths:
       - docs/**
       - .github/workflows/klipper3d-deploy.yaml
+
+permissions:
+  contents: write
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
